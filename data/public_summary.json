@@ -1,0 +1,61 @@
+{
+  "author": "Yaowen Sun",
+  "claim_boundary": "Empirical measurement over the tested datasets, limited-label budgets, seeds, schedule grid, and fixed classifier only.",
+  "datasets": [
+    "wine",
+    "breast_cancer",
+    "digits"
+  ],
+  "headline_values": {
+    "holm_significant_family_comparisons": 58,
+    "strongest_macro_f1_range": 0.11692039470926052,
+    "strongest_stratum": "digits@32",
+    "total_family_comparisons": 108,
+    "weakest_macro_f1_range": 0.00558112629448837
+  },
+  "primary_metric": "macro_f1",
+  "quality_flags": {
+    "convergence_warning_count": 0,
+    "duplicate_key_count": 0,
+    "failure_count": 0
+  },
+  "row_counts": {
+    "aggregate_rows": 108,
+    "bootstrap_ci_field_count": 108,
+    "formal_results_rows": 1080,
+    "paired_family_comparisons": 108,
+    "paired_t_test_field_count": 108,
+    "sensitivity_rows": 12
+  },
+  "schedules": [
+    "constant_0003",
+    "constant_001",
+    "constant_003",
+    "invscaling_0003",
+    "invscaling_001",
+    "invscaling_003",
+    "adaptive_0003",
+    "adaptive_001",
+    "adaptive_003"
+  ],
+  "seeds": [
+    14,
+    52,
+    88,
+    121,
+    169,
+    203,
+    247,
+    314,
+    415,
+    509
+  ],
+  "title": "Training-Schedule Robustness of Lightweight Classifiers under Limited Labels",
+  "train_per_class_budgets": [
+    4,
+    8,
+    16,
+    32
+  ],
+  "year": 2026
+}
