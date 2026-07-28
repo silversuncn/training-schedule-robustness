@@ -1,8 +1,7 @@
 # Data Files
 
-The CSV and JSON files contain derived numeric outputs from the fixed
-schedule-sensitivity experiment. They do not contain private paths, prompts,
-review files, or raw user data.
+The files contain only public, derived numeric artifacts for reproducing the
+reported analyses.
 
 - `formal_results.csv`: run-level metrics for the complete schedule matrix.
 - `formal_sensitivity.csv`: per-dataset and budget sensitivity summaries.
