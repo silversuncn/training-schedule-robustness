@@ -1,0 +1,112 @@
+{
+  "dataset": "ag_news",
+  "dataset_provenance": {
+    "dataset_id": "ag_news",
+    "features": [
+      "text",
+      "label"
+    ],
+    "label_column": "label",
+    "label_names": [
+      "World",
+      "Sports",
+      "Business",
+      "Sci/Tech"
+    ],
+    "offline_required": true,
+    "selected_test_class_counts": {
+      "0": 500,
+      "1": 500,
+      "2": 500,
+      "3": 500
+    },
+    "selected_test_rows": 2000,
+    "source": "HuggingFace datasets cached copy of AG News",
+    "split_protocol": "official train split for few-shot training; official test split for held-out evaluation",
+    "test_class_counts": {
+      "0": 1900,
+      "1": 1900,
+      "2": 1900,
+      "3": 1900
+    },
+    "test_rows": 7600,
+    "text_column": "text",
+    "train_class_counts": {
+      "0": 30000,
+      "1": 30000,
+      "2": 30000,
+      "3": 30000
+    },
+    "train_rows": 120000
+  },
+  "decision": {
+    "criteria": {
+      "macro_f1_range_min": 0.02,
+      "sensitive_strata_min": 2,
+      "validation_status": "PASS"
+    },
+    "max_accuracy_range": 0.257,
+    "max_macro_f1_range": 0.30873373237731844,
+    "ready_for_integration_review": true,
+    "sensitive_strata": 4,
+    "sensitive_strata_keys": [
+      "ag_news@16",
+      "ag_news@32",
+      "ag_news@64",
+      "ag_news@128"
+    ],
+    "status_gate": "P21_TEXT_FORMAL_READY_FOR_INTEGRATION_REVIEW",
+    "total_strata": 4
+  },
+  "expected_rows": 240,
+  "mode": "formal",
+  "optional_eta_variants_included": true,
+  "outputs": {
+    "checksums": "checksums_sha256.txt",
+    "config": "config.json",
+    "paired_schedule_comparisons": "text_schedule_formal_pairwise.csv",
+    "results": "text_schedule_formal_results.csv",
+    "schedule_means": "text_schedule_formal_schedule_means.csv",
+    "sensitivity": "text_schedule_formal_sensitivity.csv",
+    "summary": "summary.json"
+  },
+  "primary_metric": "macro_f1",
+  "row_count": 240,
+  "runtime_seconds": 34.190419585997006,
+  "schedules": [
+    "constant_001",
+    "invscaling_001",
+    "adaptive_001",
+    "optimal_builtin",
+    "constant_01",
+    "adaptive_01"
+  ],
+  "seeds": [
+    14,
+    52,
+    88,
+    121,
+    169,
+    203,
+    247,
+    314,
+    415,
+    509
+  ],
+  "status": "P21_TEXT_FORMAL_READY_FOR_INTEGRATION_REVIEW",
+  "train_per_class_budgets": [
+    16,
+    32,
+    64,
+    128
+  ],
+  "validation": {
+    "duplicate_key_count": 0,
+    "duplicate_keys": [],
+    "expected_rows": 240,
+    "nonfinite_key_metric_count": 0,
+    "nonfinite_key_metrics": [],
+    "row_count": 240,
+    "status": "PASS"
+  }
+}

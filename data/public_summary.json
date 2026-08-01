@@ -4,7 +4,8 @@
   "datasets": [
     "wine",
     "breast_cancer",
-    "digits"
+    "digits",
+    "ag_news"
   ],
   "headline_values": {
     "holm_significant_family_comparisons": 58,
@@ -22,10 +23,12 @@
   "row_counts": {
     "aggregate_rows": 108,
     "bootstrap_ci_field_count": 108,
+    "combined_result_rows": 1320,
     "formal_results_rows": 1080,
     "paired_family_comparisons": 108,
     "paired_t_test_field_count": 108,
-    "sensitivity_rows": 12
+    "sensitivity_rows": 12,
+    "text_formal_results_rows": 240
   },
   "schedules": [
     "constant_0003",
@@ -50,6 +53,57 @@
     415,
     509
   ],
+  "text_extension": {
+    "budgets": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "claim_boundary": "Real-text extension only for classical TF-IDF plus SGD log-loss; no Transformer or neural deployment claim.",
+    "dataset": "ag_news",
+    "evaluation_rows": 2000,
+    "evaluation_rows_per_class": 500,
+    "headline_values": {
+      "best_ag_news_64_macro_f1": 0.718001492675454,
+      "best_ag_news_64_schedule": "adaptive_01",
+      "largest_text_accuracy_range": 0.257,
+      "largest_text_macro_f1_range": 0.30873373237731844,
+      "largest_text_stratum": "ag_news@64",
+      "sensitive_strata": 4,
+      "total_text_strata": 4,
+      "worst_ag_news_64_macro_f1": 0.40926776029813555,
+      "worst_ag_news_64_schedule": "constant_001"
+    },
+    "optional_eta_variants_included": true,
+    "row_counts": {
+      "text_formal_results_rows": 240,
+      "text_pairwise_rows": 60,
+      "text_schedule_means_rows": 24,
+      "text_sensitivity_rows": 4
+    },
+    "schedules": [
+      "constant_001",
+      "invscaling_001",
+      "adaptive_001",
+      "optimal_builtin",
+      "constant_01",
+      "adaptive_01"
+    ],
+    "seeds": [
+      14,
+      52,
+      88,
+      121,
+      169,
+      203,
+      247,
+      314,
+      415,
+      509
+    ],
+    "split_protocol": "official train split for few-shot training; official test split for held-out evaluation"
+  },
   "title": "Training-Schedule Robustness of Lightweight Classifiers under Limited Labels",
   "train_per_class_budgets": [
     4,
