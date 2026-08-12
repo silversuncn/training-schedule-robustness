@@ -1,0 +1,42 @@
+[
+  {
+    "budget": 4,
+    "dataset": "digits",
+    "max_rank": 39,
+    "mean_condition_number": 9465286180037898.0,
+    "min_rank": 39,
+    "n_seeds": 10,
+    "std_condition_number": 1401057595333857.0,
+    "underdetermined": true
+  },
+  {
+    "budget": 8,
+    "dataset": "digits",
+    "max_rank": 56,
+    "mean_condition_number": 1.136931311521364e+17,
+    "min_rank": 52,
+    "n_seeds": 10,
+    "std_condition_number": 4794806524557240.0,
+    "underdetermined": true
+  },
+  {
+    "budget": 16,
+    "dataset": "digits",
+    "max_rank": 58,
+    "mean_condition_number": 1.5581309315929456e+17,
+    "min_rank": 54,
+    "n_seeds": 10,
+    "std_condition_number": 4413331674288277.5,
+    "underdetermined": true
+  },
+  {
+    "budget": 32,
+    "dataset": "digits",
+    "max_rank": 59,
+    "mean_condition_number": 2.2088239852058838e+17,
+    "min_rank": 55,
+    "n_seeds": 10,
+    "std_condition_number": 2618847398771684.5,
+    "underdetermined": true
+  }
+]

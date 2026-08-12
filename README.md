@@ -38,13 +38,22 @@ settings. The primary metric is macro-F1.
 │   ├── text_schedule_formal_ag_news_sensitivity.csv
 │   ├── text_schedule_formal_ag_news_pairwise.csv
 │   ├── text_schedule_formal_ag_news_config.json
-│   └── text_schedule_formal_ag_news_summary.json
+│   ├── text_schedule_formal_ag_news_summary.json
+│   └── revision_experiments_20260812/
+│       ├── lr_decay_summary.json
+│       ├── condition_number_summary.json
+│       └── wine_per_class_summary.json
 ├── figures/
 │   ├── formal_macro_f1_sensitivity_20260728.svg
 │   ├── ag_news_macro_f1_sensitivity_20260801.svg
 │   └── ag_news_macro_f1_sensitivity_20260801.png
 ├── src/
-│   └── verify_public_results.py
+│   ├── verify_public_results.py
+│   └── revision/
+│       ├── run_formal_schedule_matrix.py
+│       ├── run_lr_decay_analysis.py
+│       ├── run_condition_number_analysis.py
+│       └── run_per_class_analysis.py
 └── tests/
     └── test_public_results.py
 ```
@@ -97,6 +106,11 @@ not be treated as portable deployment benchmarks.
   text macro-F1 range is 0.3087 at 64 examples per class.
 - Higher-step `constant_01` and `adaptive_01` improve over their low-step
   counterparts in every AG News budget stratum.
+- Revision diagnostics trace plausible failure modes without expanding the
+  claim boundary: the active inverse-scaling schedule with `power_t=0.5`
+  decays to about `7.071e-05`, the `digits` budget-4 matrix has rank 39
+  with 64 features and mean condition number about `9.47e15`, and `wine`
+  class 1 is the largest per-class degradation case.
 - The results support validating inverse-scaling defaults in the target setting;
   they do not establish a universal best schedule or neural-model claim.
 
