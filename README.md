@@ -1,143 +1,88 @@
 # Training-Schedule Robustness of Lightweight Classifiers under Limited Labels
 
 > **Training-Schedule Robustness of Lightweight Classifiers under Limited Labels**  
-> Yaowen Sun
+> Yaowen Sun; Xin Zhang; Qian Zhang
 
 ## Overview
 
-This repository contains a sanitized reproduction bundle for an empirical study
-of learning-rate schedule sensitivity in fixed lightweight logistic-loss
-stochastic-gradient classifiers under limited labels. The bundle includes
-processed result tables, sanitized figures, a lightweight verification script,
-and tests for checking matrix completeness and headline values.
-
-Repository URL: https://github.com/silversuncn/training-schedule-robustness
-
-The primary tabular matrix contains all 1,080 expected runs across three
-built-in datasets, four train-per-class budgets, ten deterministic stratified
-seeds, and nine schedule settings. A real-text AG News extension adds 240 runs
-with TF-IDF features, four train-per-class budgets, ten seeds, and six schedule
-settings. The primary metric is macro-F1.
+This bundle contains public numeric artifacts for an empirical study of learning-rate schedule sensitivity in lightweight logistic-loss SGD classifiers under limited labels. It includes sanitized tables, two manuscript-referenced figures, and small local checks for matrix completeness and headline values.
 
 ## Repository Structure
 
 ```text
 .
 ├── README.md
-├── CITATION.cff
 ├── LICENSE
+├── MANIFEST.sha256
 ├── requirements.txt
 ├── data/
 │   ├── README.md
 │   ├── public_summary.json
-│   ├── formal_results.csv
-│   ├── formal_sensitivity.csv
-│   ├── formal_statistical_analysis.json
-│   ├── text_schedule_formal_ag_news_results.csv
-│   ├── text_schedule_formal_ag_news_schedule_means.csv
-│   ├── text_schedule_formal_ag_news_sensitivity.csv
-│   ├── text_schedule_formal_ag_news_pairwise.csv
-│   ├── text_schedule_formal_ag_news_config.json
-│   ├── text_schedule_formal_ag_news_summary.json
-│   └── revision_experiments_20260812/
-│       ├── lr_decay_summary.json
-│       ├── condition_number_summary.json
-│       └── wine_per_class_summary.json
+│   ├── primary_runs_v2.csv
+│   ├── primary_summary_v2.json
+│   ├── primary_statistical_analysis_v2.json
+│   ├── ag_news_runs_v2.csv
+│   ├── ag_news_schedule_means_v2.csv
+│   ├── ag_news_sensitivity_v2.csv
+│   ├── ag_news_pairwise_v2.csv
+│   ├── ag_news_summary_v2.json
+│   └── ag_news_statistical_analysis_v2.json
 ├── figures/
-│   ├── formal_macro_f1_sensitivity_20260728.svg
-│   ├── ag_news_macro_f1_sensitivity_20260801.svg
-│   └── ag_news_macro_f1_sensitivity_20260801.png
+│   ├── formal_macro_f1_sensitivity_20260728.png
+│   └── fig2_ag_news_sensitivity_v2.png
 ├── src/
-│   ├── verify_public_results.py
-│   └── revision/
-│       ├── run_formal_schedule_matrix.py
-│       ├── run_lr_decay_analysis.py
-│       ├── run_condition_number_analysis.py
-│       └── run_per_class_analysis.py
+│   └── verify_public_results.py
 └── tests/
     └── test_public_results.py
 ```
 
+## Data Files
+
+The primary matrix covers three built-in datasets, four train-per-class budgets, ten stratified seeds, and nine schedule settings, giving 1,080 runs. The AG News matrix covers four train-per-class budgets, ten seeds, and six schedule settings, giving 240 runs.
+
+Seed-paired comparisons are summarized at the primary family level for 108 comparisons and at the AG News schedule level for 60 comparisons.
+
 ## Experimental Setup
 
-| Dimension | Values | Count |
-| --- | --- | ---: |
-| Datasets | `wine`, `breast_cancer`, `digits` | 3 |
-| Train-per-class budgets | 4, 8, 16, 32 | 4 |
-| Stratified seeds | 14, 52, 88, 121, 169, 203, 247, 314, 415, 509 | 10 |
-| Schedule families | `constant`, `invscaling`, `adaptive` | 3 |
-| Initial learning rates | 0.0003, 0.001, 0.003 | 3 |
+Primary datasets are `wine`, `breast_cancer`, and `digits` with train-per-class budgets 4, 8, 16, and 32. Primary schedule settings combine `constant`, `invscaling`, and `adaptive` families with initial learning rates 0.0003, 0.001, and 0.003.
 
-AG News text extension:
-
-| Dimension | Values | Count |
-| --- | --- | ---: |
-| Dataset | `ag_news` official train/test split | 1 |
-| Evaluation subset | 2,000 balanced official test examples, 500/class | 1 |
-| Train-per-class budgets | 16, 32, 64, 128 | 4 |
-| Seeds | 14, 52, 88, 121, 169, 203, 247, 314, 415, 509 | 10 |
-| Schedule settings | `constant_001`, `invscaling_001`, `adaptive_001`, `optimal_builtin`, `constant_01`, `adaptive_01` | 6 |
-
-Row-count check:
-
-```text
-3 datasets x 4 budgets x 10 seeds x 9 schedule settings = 1,080 runs
-3 datasets x 4 budgets x 3 eta0 values x 3 family comparisons = 108 paired comparisons
-1 text dataset x 4 budgets x 10 seeds x 6 schedule settings = 240 AG News runs
-4 text budgets x C(6, 2) schedule-pair comparisons = 60 AG News paired comparisons
-```
-
-## Hardware & Environment
-
-The reported matrices were produced on CPU with Python 3.11, NumPy, SciPy,
-scikit-learn, and cached HuggingFace Datasets for AG News loading. The AG News
-path is classical TF-IDF plus SGD; no Transformer or neural model is evaluated.
-Fit-time and iteration-count fields are implementation diagnostics and should
-not be treated as portable deployment benchmarks.
+AG News uses TF-IDF features with the same logistic-loss SGD learner and train-per-class budgets 16, 32, 64, and 128. Its six schedule settings are `constant_001`, `invscaling_001`, `adaptive_001`, `optimal_builtin`, `constant_01`, and `adaptive_01`.
 
 ## Key Results
 
-- Schedule sensitivity is strongest for `digits@32`, `digits@16`, and `wine@32`.
-- Low-budget `breast_cancer` strata show weaker schedule sensitivity.
-- All 58 Holm-significant family comparisons involve `constant` or `adaptive`
-  outperforming `invscaling`.
-- No `adaptive` versus `constant` comparison reaches Holm significance.
-- AG News is schedule-sensitive at all four evaluated text budgets; the largest
-  text macro-F1 range is 0.3087 at 64 examples per class.
-- Higher-step `constant_01` and `adaptive_01` improve over their low-step
-  counterparts in every AG News budget stratum.
-- Revision diagnostics trace plausible failure modes without expanding the
-  claim boundary: the active inverse-scaling schedule with `power_t=0.5`
-  decays to about `7.071e-05`, the `digits` budget-4 matrix has rank 39
-  with 64 features and mean condition number about `9.47e15`, and `wine`
-  class 1 is the largest per-class degradation case.
-- The results support validating inverse-scaling defaults in the target setting;
-  they do not establish a universal best schedule or neural-model claim.
+The primary matrix has 58 of 108 Holm-adjusted paired family comparisons below 0.05, all involving `invscaling` underperformance. The AG News extension has 27 of 60 Holm-adjusted schedule comparisons below 0.05.
 
-## Requirements
+The largest AG News separation appears at 64 examples per class: mean macro-F1 ranges by 0.3207 and mean accuracy ranges by 0.2709 across schedule settings. Fit-time and iteration fields are implementation diagnostics rather than portable deployment benchmarks.
 
-The included verification script uses only the Python standard library. The
-`requirements.txt` file records the main packages used by the experiment
-environment.
+## Hardware & Environment
 
-Verify the public tables:
+The recorded v2 package snapshot identifies Linux under WSL2 with NumPy
+`2.4.4`, SciPy `1.17.1`, Pandas `3.0.1`, scikit-learn `1.8.0`, Matplotlib
+`3.10.8`, and Datasets `4.8.4`. The public verification script is CPU-only and
+uses bundled CSV/JSON files.
+
+## Verification
+
+The verification script uses only the Python standard library:
 
 ```bash
 python src/verify_public_results.py
-```
-
-Run the tests:
-
-```bash
 python -m unittest discover -s tests -q
 ```
 
+## Requirements
+
+The bundled verifier uses the Python standard library. Re-running the original
+matrix or figure generation requires the packages listed in `requirements.txt`.
+
 ## Citation
 
-```bibtex
-@article{sun2026trainingschedulerobustness,
-  title = {Training-Schedule Robustness of Lightweight Classifiers under Limited Labels},
-  author = {Sun, Yaowen},
-  year = {2026}
-}
-```
+Title: Training-Schedule Robustness of Lightweight Classifiers under Limited Labels
+
+Authors: Yaowen Sun; Xin Zhang; Qian Zhang
+
+Year: 2026
+
+## License
+
+Released under the MIT License. See `LICENSE`.

@@ -1,0 +1,47 @@
+{
+  "datasets": [
+    "wine",
+    "breast_cancer",
+    "digits"
+  ],
+  "budgets": [
+    4,
+    8,
+    16,
+    32
+  ],
+  "seeds": [
+    14,
+    52,
+    88,
+    121,
+    169,
+    203,
+    247,
+    314,
+    415,
+    509
+  ],
+  "schedules": [
+    "constant_0003",
+    "constant_001",
+    "constant_003",
+    "invscaling_0003",
+    "invscaling_001",
+    "invscaling_003",
+    "adaptive_0003",
+    "adaptive_001",
+    "adaptive_003"
+  ],
+  "expected_rows": 1080,
+  "row_count": 1080,
+  "fit_protocol": {
+    "alpha": 0.0001,
+    "class_weight": "balanced",
+    "loss": "log_loss",
+    "max_iter": 1000,
+    "protocol": "single sklearn SGDClassifier.fit call through the primary experiment pipeline",
+    "random_state": "seed",
+    "tol": 0.001
+  }
+}

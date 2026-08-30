@@ -1,21 +1,14 @@
 # Data Files
 
-The files contain only public, derived numeric artifacts for reproducing the
-reported analyses.
+The tables contain public numeric artifacts for the training-schedule robustness study.
 
-- `formal_results.csv`: run-level metrics for the complete schedule matrix.
-- `formal_sensitivity.csv`: per-dataset and budget sensitivity summaries.
-- `formal_statistical_analysis.json`: aggregate rows, paired family comparisons,
-  effect sizes, confidence intervals, and correction summaries.
-- `text_schedule_formal_ag_news_results.csv`: AG News text-extension run-level
-  metrics.
-- `text_schedule_formal_ag_news_schedule_means.csv`: mean AG News metrics by
-  budget and schedule.
-- `text_schedule_formal_ag_news_sensitivity.csv`: AG News per-budget sensitivity
-  summaries.
-- `text_schedule_formal_ag_news_pairwise.csv`: seed-paired AG News schedule
-  comparisons.
-- `text_schedule_formal_ag_news_config.json` and
-  `text_schedule_formal_ag_news_summary.json`: AG News provenance, matrix
-  dimensions, validation status, and headline values.
-- `public_summary.json`: compact public metadata and headline values.
+- `primary_runs_v2.csv`: 1,080 primary rows over three datasets, four budgets, ten seeds, and nine schedule settings.
+- `primary_summary_v2.json`: primary matrix dimensions and fit protocol.
+- `primary_statistical_analysis_v2.json`: 108 seed-paired family comparisons with effect sizes and Holm adjustment.
+- `ag_news_runs_v2.csv`: 240 AG News rows over four budgets, ten seeds, and six schedule settings.
+- `ag_news_schedule_means_v2.csv`: AG News mean metrics by budget and schedule.
+- `ag_news_sensitivity_v2.csv`: AG News per-budget macro-F1, accuracy, log-loss, runtime, and iteration ranges.
+- `ag_news_pairwise_v2.csv`: 60 AG News seed-paired schedule comparisons.
+- `ag_news_summary_v2.json`: AG News dimensions, public split details, and headline ranges.
+- `ag_news_statistical_analysis_v2.json`: AG News comparison summary with Holm adjustment.
+- `public_summary.json`: compact title, author names, row counts, headline values, and figure list.
