@@ -1,11 +1,20 @@
-# Training-Schedule Robustness of Lightweight Classifiers under Limited Labels
+# Training-Schedule Robustness of a Lightweight Classifier under Limited Labels
 
-> **Training-Schedule Robustness of Lightweight Classifiers under Limited Labels**  
+> **Training-Schedule Robustness of a Lightweight Classifier under Limited Labels**
 > Yaowen Sun; Xin Zhang; Qian Zhang
 
 ## Overview
 
-This bundle contains public numeric artifacts for an empirical study of learning-rate schedule sensitivity in lightweight logistic-loss SGD classifiers under limited labels. It includes sanitized tables, two manuscript-referenced figures, and small local checks for matrix completeness and headline values.
+This bundle contains sanitized derived numeric artifacts for an empirical study
+of learning-rate schedule sensitivity in a lightweight logistic-loss SGD
+classifier under limited labels. It includes aggregate tables, two
+manuscript-referenced figures, and small local consistency checks for matrix
+completeness and headline values.
+
+This repository does not redistribute raw external datasets and does not include
+the original training pipeline, statistical-analysis scripts, or figure
+generation scripts. It is a public consistency bundle for the reported derived
+results.
 
 ## Repository Structure
 
@@ -29,7 +38,7 @@ This bundle contains public numeric artifacts for an empirical study of learning
 │   └── ag_news_statistical_analysis_v2.json
 ├── figures/
 │   ├── formal_macro_f1_sensitivity_20260728.png
-│   └── fig2_ag_news_sensitivity_v2.png
+│   └── fig2_ag_news_sensitivity_v3.png
 ├── src/
 │   └── verify_public_results.py
 └── tests/
@@ -38,21 +47,39 @@ This bundle contains public numeric artifacts for an empirical study of learning
 
 ## Data Files
 
-The primary matrix covers three built-in datasets, four train-per-class budgets, ten stratified seeds, and nine schedule settings, giving 1,080 runs. The AG News matrix covers four train-per-class budgets, ten seeds, and six schedule settings, giving 240 runs.
+The primary matrix covers three built-in datasets, four train-per-class budgets,
+ten stratified seeds, and nine schedule settings, giving 1,080 runs. The AG News
+matrix covers four train-per-class budgets, ten seeds, and seven schedule
+settings, giving 280 runs. All public AG News rows use
+`test_selection_seed=20260830`.
 
-Seed-paired comparisons are summarized at the primary family level for 108 comparisons and at the AG News schedule level for 60 comparisons.
+Seed-paired comparisons are summarized at the primary family level for 108
+comparisons and at the AG News schedule level for 84 comparisons.
 
 ## Experimental Setup
 
-Primary datasets are `wine`, `breast_cancer`, and `digits` with train-per-class budgets 4, 8, 16, and 32. Primary schedule settings combine `constant`, `invscaling`, and `adaptive` families with initial learning rates 0.0003, 0.001, and 0.003.
+Primary datasets are `wine`, `breast_cancer`, and `digits` with train-per-class
+budgets 4, 8, 16, and 32. Primary schedule settings combine `constant`,
+`invscaling`, and `adaptive` families with initial learning rates 0.0003,
+0.001, and 0.003.
 
-AG News uses TF-IDF features with the same logistic-loss SGD learner and train-per-class budgets 16, 32, 64, and 128. Its six schedule settings are `constant_001`, `invscaling_001`, `adaptive_001`, `optimal_builtin`, `constant_01`, and `adaptive_01`.
+AG News uses TF-IDF features with the same logistic-loss SGD learner and
+train-per-class budgets 16, 32, 64, and 128. Its seven schedule settings are
+`constant_001`, `invscaling_001`, `adaptive_001`, `optimal_builtin`,
+`constant_01`, `invscaling_01`, and `adaptive_01`.
 
 ## Key Results
 
-The primary matrix has 58 of 108 Holm-adjusted paired family comparisons below 0.05, all involving `invscaling` underperformance. The AG News extension has 27 of 60 Holm-adjusted schedule comparisons below 0.05.
+The primary matrix has 58 of 108 Holm-adjusted paired family comparisons below
+0.05, all involving `invscaling` underperformance. The AG News extension has
+36 of 84 Holm-adjusted schedule comparisons below
+0.05.
 
-The largest AG News separation appears at 64 examples per class: mean macro-F1 ranges by 0.3207 and mean accuracy ranges by 0.2709 across schedule settings. Fit-time and iteration fields are implementation diagnostics rather than portable deployment benchmarks.
+The largest AG News separation appears at 64 examples per class: mean macro-F1
+ranges by 0.3207 and mean accuracy ranges by
+0.2709 across schedule settings. Fit-time and
+iteration fields are implementation diagnostics rather than portable deployment
+benchmarks.
 
 ## Hardware & Environment
 
@@ -77,7 +104,7 @@ matrix or figure generation requires the packages listed in `requirements.txt`.
 
 ## Citation
 
-Title: Training-Schedule Robustness of Lightweight Classifiers under Limited Labels
+Title: Training-Schedule Robustness of a Lightweight Classifier under Limited Labels
 
 Authors: Yaowen Sun; Xin Zhang; Qian Zhang
 

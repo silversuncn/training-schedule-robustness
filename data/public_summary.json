@@ -1,37 +1,19 @@
 {
-  "title": "Training-Schedule Robustness of Lightweight Classifiers under Limited Labels",
-  "authors": [
-    "Yaowen Sun",
-    "Xin Zhang",
-    "Qian Zhang"
-  ],
-  "year": 2026,
-  "primary_metric": "macro_f1",
-  "row_counts": {
-    "primary_runs": 1080,
-    "ag_news_runs": 240,
-    "primary_paired_comparisons": 108,
-    "ag_news_paired_comparisons": 60,
-    "ag_news_schedule_means": 24,
-    "ag_news_sensitivity_rows": 4
-  },
-  "headline_values": {
-    "ag_news_max_macro_f1_range": 0.3207,
-    "ag_news_max_accuracy_range": 0.2709,
-    "primary_holm_significant_family_comparisons": 58,
-    "ag_news_holm_significant_comparisons": 27
-  },
-  "primary_matrix": {
-    "datasets": [
-      "wine",
-      "breast_cancer",
-      "digits"
-    ],
+  "ag_news_matrix": {
     "budgets": [
-      4,
-      8,
       16,
-      32
+      32,
+      64,
+      128
+    ],
+    "schedules": [
+      "adaptive_001",
+      "adaptive_01",
+      "constant_001",
+      "constant_01",
+      "invscaling_001",
+      "invscaling_01",
+      "optimal_builtin"
     ],
     "seeds": [
       14,
@@ -45,6 +27,46 @@
       415,
       509
     ],
+    "selected_test_rows": 2000,
+    "sensitive_strata": 4,
+    "test_selection_seed": 20260830
+  },
+  "authors": [
+    "Yaowen Sun",
+    "Xin Zhang",
+    "Qian Zhang"
+  ],
+  "figures": [
+    "figures/formal_macro_f1_sensitivity_20260728.png",
+    "figures/fig2_ag_news_sensitivity_v3.png"
+  ],
+  "headline_values": {
+    "ag_news_holm_significant_comparisons": 36,
+    "ag_news_max_accuracy_range": 0.2709,
+    "ag_news_max_macro_f1_range": 0.3207,
+    "primary_holm_significant_family_comparisons": 58
+  },
+  "primary_matrix": {
+    "budgets": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "datasets": [
+      "wine",
+      "breast_cancer",
+      "digits"
+    ],
+    "fit_protocol": {
+      "alpha": 0.0001,
+      "class_weight": "balanced",
+      "loss": "log_loss",
+      "max_iter": 1000,
+      "protocol": "single sklearn SGDClassifier.fit call through the primary experiment pipeline",
+      "random_state": "seed",
+      "tol": 0.001
+    },
     "schedules": [
       "constant_0003",
       "constant_001",
@@ -56,23 +78,6 @@
       "adaptive_001",
       "adaptive_003"
     ],
-    "fit_protocol": {
-      "alpha": 0.0001,
-      "class_weight": "balanced",
-      "loss": "log_loss",
-      "max_iter": 1000,
-      "protocol": "single sklearn SGDClassifier.fit call through the primary experiment pipeline",
-      "random_state": "seed",
-      "tol": 0.001
-    }
-  },
-  "ag_news_matrix": {
-    "budgets": [
-      16,
-      32,
-      64,
-      128
-    ],
     "seeds": [
       14,
       52,
@@ -84,20 +89,17 @@
       314,
       415,
       509
-    ],
-    "schedules": [
-      "constant_001",
-      "invscaling_001",
-      "adaptive_001",
-      "optimal_builtin",
-      "constant_01",
-      "adaptive_01"
-    ],
-    "selected_test_rows": 2000,
-    "sensitive_strata": 4
+    ]
   },
-  "figures": [
-    "figures/formal_macro_f1_sensitivity_20260728.png",
-    "figures/fig2_ag_news_sensitivity_v2.png"
-  ]
+  "primary_metric": "macro_f1",
+  "row_counts": {
+    "ag_news_paired_comparisons": 84,
+    "ag_news_runs": 280,
+    "ag_news_schedule_means": 28,
+    "ag_news_sensitivity_rows": 4,
+    "primary_paired_comparisons": 108,
+    "primary_runs": 1080
+  },
+  "title": "Training-Schedule Robustness of a Lightweight Classifier under Limited Labels",
+  "year": 2026
 }

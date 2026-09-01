@@ -33,6 +33,7 @@ AG_NEWS_SCHEDULES = {
     "adaptive_001",
     "optimal_builtin",
     "constant_01",
+    "invscaling_01",
     "adaptive_01",
 }
 
@@ -63,6 +64,13 @@ def rounded_headline(value: float) -> float:
     return math.floor(value * 10000.0 + 0.500000001) / 10000.0
 
 
+def ensure_no_public_path_fields(rows: list[dict[str, str]]) -> None:
+    forbidden = {"run_dir", "workdir", "output_dir", "path"}
+    present = forbidden.intersection(rows[0].keys() if rows else set())
+    if present:
+        raise AssertionError(f"forbidden path-like columns present: {sorted(present)}")
+
+
 def build_report() -> dict[str, object]:
     public_summary = read_json("public_summary.json")
     primary_rows = read_csv("primary_runs_v2.csv")
@@ -75,16 +83,19 @@ def build_report() -> dict[str, object]:
     ag_summary = read_json("ag_news_summary_v2.json")
     ag_stats = read_json("ag_news_statistical_analysis_v2.json")
 
+    ensure_no_public_path_fields(primary_rows)
+    ensure_no_public_path_fields(ag_rows)
+
     if len(primary_rows) != 1080:
         raise AssertionError(f"primary rows: observed {len(primary_rows)}, expected 1080")
-    if len(ag_rows) != 240:
-        raise AssertionError(f"AG News rows: observed {len(ag_rows)}, expected 240")
-    if len(ag_means) != 24:
-        raise AssertionError(f"AG News mean rows: observed {len(ag_means)}, expected 24")
+    if len(ag_rows) != 280:
+        raise AssertionError(f"AG News rows: observed {len(ag_rows)}, expected 280")
+    if len(ag_means) != 28:
+        raise AssertionError(f"AG News mean rows: observed {len(ag_means)}, expected 28")
     if len(ag_sensitivity) != 4:
         raise AssertionError(f"AG News sensitivity rows: observed {len(ag_sensitivity)}, expected 4")
-    if len(ag_pairwise) != 60:
-        raise AssertionError(f"AG News pairwise rows: observed {len(ag_pairwise)}, expected 60")
+    if len(ag_pairwise) != 84:
+        raise AssertionError(f"AG News pairwise rows: observed {len(ag_pairwise)}, expected 84")
 
     primary_keys = {
         (row["dataset"], row["train_per_class"], row["seed"], row["schedule"])
@@ -128,8 +139,9 @@ def build_report() -> dict[str, object]:
     assert_finite(ag_rows, ["accuracy", "macro_f1", "log_loss", "fit_seconds"])
 
     ag64 = {int(row["train_per_class"]): row for row in ag_sensitivity}[64]
-    assert_close("AG News 64 macro-F1 range", float(ag64["macro_f1_range"]), 0.3207227955755691)
-    assert_close("AG News 64 accuracy range", float(ag64["accuracy_range"]), 0.2708499999999999)
+    headline = public_summary["headline_values"]
+    assert_close("AG News 64 macro-F1 range", float(ag64["macro_f1_range"]), float(headline["ag_news_max_macro_f1_range"]))
+    assert_close("AG News 64 accuracy range", float(ag64["accuracy_range"]), float(headline["ag_news_max_accuracy_range"]))
     if ag64["best_schedule"] != "adaptive_01" or ag64["worst_schedule"] != "constant_001":
         raise AssertionError("AG News 64 best/worst schedule mismatch")
 
@@ -137,17 +149,19 @@ def build_report() -> dict[str, object]:
         raise AssertionError("primary summary row count mismatch")
     if primary_stats["family_size"] != 108 or len(primary_stats["comparisons"]) != 108:
         raise AssertionError("primary paired comparison count mismatch")
-    if ag_summary["row_count"] != 240 or ag_summary["expected_rows"] != 240:
+    if ag_summary["row_count"] != 280 or ag_summary["expected_rows"] != 280:
         raise AssertionError("AG News summary row count mismatch")
-    if ag_stats["family_size"] != 60 or len(ag_stats["comparisons"]) != 60:
+    ag_comparison_count = ag_stats.get("comparison_count", ag_stats.get("family_size"))
+    if ag_comparison_count != 84 or len(ag_stats["comparisons"]) != 84:
         raise AssertionError("AG News paired comparison count mismatch")
 
-    headline = public_summary["headline_values"]
-    assert_close("public macro-F1 range", float(headline["ag_news_max_macro_f1_range"]), 0.3207)
-    assert_close("public accuracy range", float(headline["ag_news_max_accuracy_range"]), 0.2709)
+    computed_ag_significant = sum(
+        1 for comparison in ag_stats["comparisons"]
+        if comparison["holm_significant_0_05"]
+    )
     if headline["primary_holm_significant_family_comparisons"] != 58:
         raise AssertionError("primary Holm comparison headline mismatch")
-    if headline["ag_news_holm_significant_comparisons"] != 27:
+    if headline["ag_news_holm_significant_comparisons"] != computed_ag_significant:
         raise AssertionError("AG News Holm comparison headline mismatch")
 
     return {

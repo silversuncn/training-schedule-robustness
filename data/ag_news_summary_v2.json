@@ -1,14 +1,19 @@
 {
   "dataset": "ag_news",
+  "expected_rows": 280,
+  "max_accuracy_range": 0.2708499999999999,
+  "max_macro_f1_range": 0.3207227955755691,
   "mode": "formal",
   "primary_metric": "macro_f1",
-  "expected_rows": 240,
-  "row_count": 240,
-  "train_per_class_budgets": [
-    16,
-    32,
-    64,
-    128
+  "row_count": 280,
+  "schedules": [
+    "adaptive_001",
+    "adaptive_01",
+    "constant_001",
+    "constant_01",
+    "invscaling_001",
+    "invscaling_01",
+    "optimal_builtin"
   ],
   "seeds": [
     14,
@@ -22,35 +27,32 @@
     415,
     509
   ],
-  "schedules": [
-    "constant_001",
-    "invscaling_001",
-    "adaptive_001",
-    "optimal_builtin",
-    "constant_01",
-    "adaptive_01"
-  ],
-  "selected_test_rows": 2000,
   "selected_test_class_counts": {
     "0": 500,
     "1": 500,
     "2": 500,
     "3": 500
   },
-  "split_protocol": "official train split for few-shot training; official test split for held-out evaluation",
-  "validation": {
-    "expected_rows": 240,
-    "row_count": 240,
-    "duplicate_key_count": 0,
-    "nonfinite_key_metric_count": 0
-  },
-  "max_macro_f1_range": 0.3207227955755691,
-  "max_accuracy_range": 0.2708499999999999,
+  "selected_test_rows": 2000,
   "sensitive_strata": 4,
   "sensitive_strata_keys": [
     "ag_news@16",
     "ag_news@32",
     "ag_news@64",
     "ag_news@128"
-  ]
+  ],
+  "split_protocol": "official train split for few-shot training; official test split for held-out evaluation",
+  "test_selection_seed": 20260830,
+  "train_per_class_budgets": [
+    16,
+    32,
+    64,
+    128
+  ],
+  "validation": {
+    "duplicate_key_count": 0,
+    "expected_rows": 280,
+    "nonfinite_key_metric_count": 0,
+    "row_count": 280
+  }
 }
