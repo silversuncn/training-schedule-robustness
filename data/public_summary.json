@@ -98,7 +98,28 @@
     "ag_news_schedule_means": 28,
     "ag_news_sensitivity_rows": 4,
     "primary_paired_comparisons": 108,
+    "primary_sensitivity_rows": 12,
     "primary_runs": 1080
+  },
+  "signflip_sensitivity": {
+    "primary_108": {
+      "comparison_count": 108,
+      "paired_t_holm_significant_count": 58,
+      "signflip_holm_significant_count": 0,
+      "conclusion_agreement_count": 50,
+      "conclusion_disagreement_count": 58,
+      "signflip_iterations": 10000,
+      "signflip_base_seed": 20260901
+    },
+    "ag_news_84": {
+      "comparison_count": 84,
+      "paired_t_holm_significant_count": 36,
+      "signflip_holm_significant_count": 0,
+      "conclusion_agreement_count": 48,
+      "conclusion_disagreement_count": 36,
+      "signflip_iterations": 10000,
+      "signflip_base_seed": 20260901
+    }
   },
   "title": "Training-Schedule Robustness of a Lightweight Classifier under Limited Labels",
   "year": 2026

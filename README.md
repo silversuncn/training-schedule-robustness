@@ -28,6 +28,7 @@ results.
 │   ├── README.md
 │   ├── public_summary.json
 │   ├── primary_runs_v2.csv
+│   ├── primary_sensitivity_v2.csv
 │   ├── primary_summary_v2.json
 │   ├── primary_statistical_analysis_v2.json
 │   ├── ag_news_runs_v2.csv
@@ -35,7 +36,9 @@ results.
 │   ├── ag_news_sensitivity_v2.csv
 │   ├── ag_news_pairwise_v2.csv
 │   ├── ag_news_summary_v2.json
-│   └── ag_news_statistical_analysis_v2.json
+│   ├── ag_news_statistical_analysis_v2.json
+│   ├── signflip_primary_108.json
+│   └── signflip_agnews_84.json
 ├── figures/
 │   ├── formal_macro_f1_sensitivity_20260728.png
 │   └── fig2_ag_news_sensitivity_v3.png
@@ -48,13 +51,16 @@ results.
 ## Data Files
 
 The primary matrix covers three built-in datasets, four train-per-class budgets,
-ten stratified seeds, and nine schedule settings, giving 1,080 runs. The AG News
-matrix covers four train-per-class budgets, ten seeds, and seven schedule
-settings, giving 280 runs. All public AG News rows use
+ten stratified seeds, and nine schedule settings, giving 1,080 runs. Its
+12 dataset-budget sensitivity rows are bundled in `primary_sensitivity_v2.csv`.
+The AG News matrix covers four train-per-class budgets, ten seeds, and seven
+schedule settings, giving 280 runs. All public AG News rows use
 `test_selection_seed=20260830`.
 
 Seed-paired comparisons are summarized at the primary family level for 108
 comparisons and at the AG News schedule level for 84 comparisons.
+The sign-flip sensitivity files report 10,000-iteration paired permutation
+checks for the same 108 primary and 84 AG News comparisons.
 
 ## Experimental Setup
 
@@ -74,6 +80,13 @@ The primary matrix has 58 of 108 Holm-adjusted paired family comparisons below
 0.05, all involving `invscaling` underperformance. The AG News extension has
 36 of 84 Holm-adjusted schedule comparisons below
 0.05.
+The largest primary sensitivity rows are `digits` at budget 32
+(macro-F1 range 0.1169), `digits` at budget 16 (0.1053), and `wine` at budget
+32 (0.0873).
+In the 10,000-iteration sign-flip sensitivity check, 0 of 108 primary and
+0 of 84 AG News comparisons remain Holm-significant; paired-t/Holm and
+sign-flip/Holm conclusions agree for 50 of 108 primary and 48 of 84 AG News
+comparisons.
 
 The largest AG News separation appears at 64 examples per class: mean macro-F1
 ranges by 0.3207 and mean accuracy ranges by
